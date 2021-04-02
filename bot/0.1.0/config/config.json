@@ -1,0 +1,8 @@
+{
+    "prefix": "!",
+    "token": {
+        "issuer": "RewindFotografia&Vídeo - AndreMonteiro1996",
+        "expiresIn": "300s",
+        "algorithm": "RS256"
+    }
+}
