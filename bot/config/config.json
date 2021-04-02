@@ -1,0 +1,13 @@
+{
+    "prefix": "!",
+    "token": {
+        "issuer": "RewindFotografia&Vídeo - AndreMonteiro1996",
+        "expiresIn": "300s",
+        "algorithm": "RS256"
+    },
+    "api": {
+        "server": "http://localhost",
+        "port": 5000
+    }
+
+}

@@ -1,3 +1,9 @@
+#Keys
+bot/v0.1.0/keys/public
+bot/v0.1.0/keys/private
+*.key
+*.pem
+
 # Logs
 logs
 *.log

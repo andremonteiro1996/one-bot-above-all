@@ -1,0 +1,21 @@
+{
+  "name": "onebotaboveall",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^12.5.2",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.7",
+    "seedrandom": "^3.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "nodemon index.js",
+    "prod": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
