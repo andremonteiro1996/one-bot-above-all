@@ -50,10 +50,32 @@ module.exports = (client, Discord, command) => {
             console.log(`Comando ${command.name} registado!`);
 
             let {
-
+                nome,
+                aliases = [],
+                description,
+                expectedArgs,
+                permissions = [],
+                permissionErr = 'Não tens as permissões necessárias para usar esse comando!',
+                requiredRoles = []
             } = command;
 
-            
+            if (typeof(aliases) === 'string') {
+                aliases = [aliases];
+            }
+
+            if (permissions.length) {
+                if (typeof(permissions) === 'string') {
+                    permissions = [permissions];
+                }
+                validatePermissions(permissions);
+            }
+
+            if (command.name) {
+                client.commands.set(command.name, command);
+            }
+
         });
     }
+
+    // ['admin', 'users', 'utils'].forEach(e => load_dir(e));
 }
