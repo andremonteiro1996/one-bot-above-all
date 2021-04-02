@@ -13,7 +13,7 @@ module.exports = (Discord, client, message) => {
     const payload = {
         "userTag": author.tag,
         "userId": author.id,
-    };
+    }
 
     const jwtToken = jwt.sign(payload, privateKey, token);
     if (process.env.MODE === 'Development') console.log(jwtToken);
@@ -31,7 +31,7 @@ module.exports = (Discord, client, message) => {
         }
     }
 
-    const req = http.request(options, res => {
+    const req = http.request(options, (res) => {
         let data = '';
 
         res.on('data', (chunk) => {
