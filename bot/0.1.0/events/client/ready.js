@@ -4,7 +4,7 @@ module.exports = (Discord, client) => {
     console.log(`${client.user.tag} está agora online e a correr no modo de ${process.env.MODE}`);
 
     const activities = [
-        'Plague INC'
+        'Plague, Inc'
     ];
 
     const type = [
