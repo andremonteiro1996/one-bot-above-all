@@ -15,4 +15,4 @@ Para fazer:<br>
 [❌] Validação do token no pedido;<br>
 [❌] Comandos básicos: Ping, etc..;<br>
 [❌] Comandos avançados: Blacklist, Ticket, etc...;<br>
-[❌] Comandos de Administração: ;<br>
+[❌] Comandos de Administração: Clear, Ban, Kick, Disconnect, Mute, etc...;<br>
