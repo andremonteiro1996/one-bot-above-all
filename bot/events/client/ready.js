@@ -1,10 +1,10 @@
 const { arrayRand } = require('../../config/functions');
 
 module.exports = (Discord, client) => {
-    console.log(`${client.user.tag} está agora online e a correr no modo de ${process.env.MODE}`);
+    console.log(`${client.user.tag} está agora online e a correr no modo de ${process.env.MODE}!`);
 
     const activities = [
-        'Plague, Inc'
+        'Plague, Inc',
     ];
 
     const type = [
@@ -14,7 +14,8 @@ module.exports = (Discord, client) => {
     client.user.setActivity(
         activities[arrayRand(activities.length)],
         {
-            type: type[arrayRand(type.length)]
+            type: type[arrayRand(type.length)],
         }
     );
+
 }
