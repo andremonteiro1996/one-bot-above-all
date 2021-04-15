@@ -73,9 +73,9 @@ module.exports = (client, Discord, command) => {
             if (command.name) {
                 client.commands.set(command.name, command);
             }
-
+            
         });
     }
 
-    // ['admin', 'users', 'utils'].forEach(e => load_dir(e));
+    ['admin', 'users', 'utils'].forEach(e => load_dir(e));
 }
