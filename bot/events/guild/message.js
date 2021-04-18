@@ -12,7 +12,7 @@ module.exports = (Discord, client, message) => {
     const command = client.commands.get(cmd) || client.commands.find(command => command.aliases && command.aliases.includes(cmd));
     
     if (!command) {
-        return message.reply(`O comando !${cmd} não existe ou não está disponível`);
+        return message.reply(`o comando !${cmd} não existe ou não está disponível`);
     }
 
     const { 

@@ -55,7 +55,7 @@ module.exports = (client, Discord, command) => {
                 description,
                 expectedArgs,
                 permissions = [],
-                permissionErr = 'Não tens as permissões necessárias para usar esse comando!',
+                permissionErr = 'não tens as permissões necessárias para usar esse comando!',
                 requiredRoles = []
             } = command;
 
