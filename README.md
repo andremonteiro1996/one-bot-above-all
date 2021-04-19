@@ -1,7 +1,7 @@
 # OneBotAboveAll
 
 <p>
-  <a href="#"><img src="https://img.shields.io/badge/Version-v0.1.0-orange?style=flat"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Version-v0.2.0-orange?style=flat"></a>
   <a href="#"><img src="https://img.shields.io/badge/DiscordJS-12.5.3-blue?style=flat"></a>
   <!--<img src="https://img.shields.io/badge/NodeJS-v14.16.0-greenstyle=flat">-->
 </p>
