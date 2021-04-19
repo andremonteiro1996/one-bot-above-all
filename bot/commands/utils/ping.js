@@ -1,4 +1,4 @@
-const http = require('http');
+const { request } = require('http');
 
 module.exports = {
     name: 'ping',
@@ -8,7 +8,7 @@ module.exports = {
     permissions: [],
     permissionsErr: '',
     requiredRoles: [],
-    execute: async (client, message, args, Discord) => {
+    execute: (client, message, args, Discord) => {
         if (args[0] === 'api') {
             var start = new Date().getUTCMilliseconds();
             const options = {
@@ -24,17 +24,17 @@ module.exports = {
                     data += chunk;
                 });
 
-                response.on('end', async () => {
+                response.on('end', () => {
                     var end = new Date().getUTCMilliseconds();
-                    await message.reply(`o tempo de resposta da api é de ${end - start}ms.`);
+                    message.reply(`o tempo de resposta da api é de ${end - start}ms.`);
                 });
             }
-            const req = http.request(options, callback).on('error', async (err) => {
-                await message.reply('não foi possivel estabelecer conexão!');
+            const req = request(options, callback).on('error', async (err) => {
+                message.reply('não foi possivel estabelecer conexão!');
             });
             req.end();
         } else {
-            await message.reply(`o tempo de resposta do bot é de ${Math.round(client.ws.ping)}ms.`);
+            message.reply(`o tempo de resposta do bot é de ${Math.round(client.ws.ping)}ms.`);
         }
     }
 }
