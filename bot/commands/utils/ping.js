@@ -33,7 +33,6 @@ module.exports = {
                 await message.reply('não foi possivel estabelecer conexão!');
             });
             req.end();
-            return;
         } else {
             await message.reply(`o tempo de resposta do bot é de ${Math.round(client.ws.ping)}ms.`);
         }
