@@ -1,4 +1,4 @@
-const fs = require('fs');
+const { readdirSync } = require('fs');
 
 const validatePermissions = (permissions) => {
     const validPermissions = [
@@ -44,7 +44,7 @@ const validatePermissions = (permissions) => {
 
 module.exports = (client, Discord, command) => {
     const load_dir = (dirs) => {
-        const command_files = fs.readdirSync(`./commands/${dirs}`).filter(file => file.endsWith('.js'));
+        const command_files = readdirSync(`./commands/${dirs}`).filter(file => file.endsWith('.js'));
         command_files.forEach(file => {
             command = require(`../commands/${dirs}/${file}`);
             console.log(`Comando ${command.name} registado!`);
@@ -55,7 +55,7 @@ module.exports = (client, Discord, command) => {
                 description,
                 expectedArgs,
                 permissions = [],
-                permissionErr = 'Não tens as permissões necessárias para usar esse comando!',
+                permissionErr = 'não tens as permissões necessárias para usar esse comando!',
                 requiredRoles = []
             } = command;
 
@@ -73,9 +73,9 @@ module.exports = (client, Discord, command) => {
             if (command.name) {
                 client.commands.set(command.name, command);
             }
-
+            
         });
     }
 
-    // ['admin', 'users', 'utils'].forEach(e => load_dir(e));
+    ['admin', 'users', 'utils'].forEach(e => load_dir(e));
 }

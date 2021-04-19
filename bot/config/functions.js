@@ -10,5 +10,10 @@ module.exports = {
         return Math.floor(
             Math.random() * (arrayLength - 0 + 1) + 0
         );
+    },
+    capitalize: (string) => {
+        if (typeof(string) !== 'string') return;
+        const capString = string.charAt(0).toUpperCase() + string.slice(1);
+        return capString;
     }
 }
