@@ -33,8 +33,9 @@ module.exports = (Discord, client, message) => {
     }
 
     for (const alias of aliases) {
-        if (cmd.startsWith(`${alias}`) || cmd.startsWith(`${name}`)) {
+        if (cmd.includes(`${alias}`) || cmd.startsWith(`${name}`)) {
             execute(client, message, args, Discord);
+            break;
         }
     }
 }
