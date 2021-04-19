@@ -1,4 +1,4 @@
-const fs = require('fs');
+const { readdirSync } = require('fs');
 
 const validatePermissions = (permissions) => {
     const validPermissions = [
@@ -44,7 +44,7 @@ const validatePermissions = (permissions) => {
 
 module.exports = (client, Discord, command) => {
     const load_dir = (dirs) => {
-        const command_files = fs.readdirSync(`./commands/${dirs}`).filter(file => file.endsWith('.js'));
+        const command_files = readdirSync(`./commands/${dirs}`).filter(file => file.endsWith('.js'));
         command_files.forEach(file => {
             command = require(`../commands/${dirs}/${file}`);
             console.log(`Comando ${command.name} registado!`);
