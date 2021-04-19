@@ -9,9 +9,9 @@ module.exports = {
 	permissions: [],
 	permissionsErr: '',
 	requiredRoles: [],
-	execute: async (client, message, args, Discord) => {
+	execute: (client, message, args, Discord) => {
 		if (args[0]) {
-			await message.reply('este comando não aceita argumentos.');
+			message.reply('este comando não aceita argumentos.');
 			return;
 		} else {
 			let cmd = [];
@@ -36,8 +36,11 @@ module.exports = {
 
 			const embed = new Discord.MessageEmbed()
 				.setColor('#8996d2')
-				.setTitle('Test')
-				.addFields(cmd);
+				.setTitle('Menu de ajuda')
+                .setDescription('Aqui são apresentados os comandos a que tens acesso. Para usar estes comandos prefixa-se sempre um "!".')
+                .addFields(cmd)
+                .setTimestamp()
+                .setFooter( `${message.author.tag}`, `${message.author.avatarURL()}`);
 
 			message.channel.send(embed);
 		}
