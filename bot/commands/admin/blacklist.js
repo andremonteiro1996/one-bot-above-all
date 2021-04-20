@@ -36,14 +36,14 @@ module.exports = {
 			const channelId = args[0] !== undefined ? args[0].replace('<#', '').replace('>', '') : channelid;
 			
 			const get_callback = (response) => {
-				let data = '';
+				let get_data = '';
 
 				response.on('data', (chunk) => {
-					data += chunk;
+					get_data += chunk;
 				});
 
 				response.on('end', () => {
-					let get_resp = JSON.parse(data);
+					let get_resp = JSON.parse(get_data);
 
 					if (response.statusCode === 404) {
 						const insert = {
@@ -54,14 +54,14 @@ module.exports = {
 						};
 
 						const post_callback = (response) => {
-							let data = '';
+							let post_data = '';
 
 							response.on('data', (chunk) => {
-								data += chunk;
+								post_data += chunk;
 							});
 
 							response.on('end', async () => {
-								let post_resp = JSON.parse(data);
+								let post_resp = JSON.parse(post_data);
                                 console.log(post_resp);
 								await message.reply(post_resp.msg);
 							});
@@ -70,7 +70,7 @@ module.exports = {
                         const post_options = {
                             server: api.server,
                             port: api.port,
-                            path: `/api/channels/`,
+                            path: '/api/channels/',
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -92,14 +92,14 @@ module.exports = {
 						}
 						
 						const update_callback = (response) => {
-							let data = '';
+							let put_data = '';
 
 							response.on('data', (chunk) => {
-								data += chunk;
+								put_data += chunk;
 							});
 
 							response.on('end', async () => {
-								let update_resp = JSON.parse(data);
+								let update_resp = JSON.parse(put_data);
 								await message.reply(update_resp.msg);
 							});
 						};
