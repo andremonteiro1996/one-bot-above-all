@@ -51,7 +51,7 @@ module.exports = {
 							channelname: channelname,
 							guildId: message.guild.cache.map(guild => guild.id),
 							usertag: message.author.tag
-						}
+						};
 
 						const post_callback = (response) => {
 							let data = '';
@@ -65,9 +65,9 @@ module.exports = {
                                 console.log(post_resp);
 								await message.reply(post_resp.msg);
 							});
-						}
+						};
 
-                        const options = {
+                        const post_options = {
                             server: api.server,
                             port: api.port,
                             path: `/api/channels/`,
@@ -78,7 +78,7 @@ module.exports = {
                             }
                         };
 
-						const req = request(options, post_callback).on('error', async (err) => {
+						const req = request(post_options, post_callback).on('error', async (err) => {
 							await message.reply('ups, algo correu mal! Tenta novamente mais tarde.');
 							if (process.env.MODE === 'Development') console.log(err);
 						});
@@ -102,9 +102,9 @@ module.exports = {
 								let update_resp = JSON.parse(data);
 								await message.reply(update_resp.msg);
 							});
-						}
+						};
 
-                        const options = {
+                        const update_options = {
                             server: api.server,
                             port: api.port,
                             path: `/api/channels/${channelId}`,
@@ -115,7 +115,7 @@ module.exports = {
                             }
                         };
 
-						const req = request(options, update_callback).on('error', async (err) => {
+						const req = request(update_options, update_callback).on('error', async (err) => {
 							await message.reply('ups, algo correu mal! Tenta novamente mais tarde.');
 							if (process.env.MODE === 'Development') console.log(err);
 						});
