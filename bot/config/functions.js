@@ -1,4 +1,6 @@
 const seedRandom = require('seedrandom');
+const api = require('./config.json');
+const { server, port } = api;
 
 module.exports = {
     rand: (seed) => {
@@ -15,5 +17,18 @@ module.exports = {
         if (typeof(string) !== 'string') return;
         const capString = string.charAt(0).toUpperCase() + string.slice(1);
         return capString;
+    },
+    server_options: (path, method, token = null) => {
+        const options = {
+            server: server,
+            port: port,
+            path: path,
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-access': token === null ? '' : token
+            }
+        };
+        return options;
     }
 }
