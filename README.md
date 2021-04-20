@@ -8,11 +8,16 @@
 
 Este projecto serve para modelo/aprendizagem do sistema por de trás de um bot do discord, e aprofundamento de conhecimento em Javascript.
 <br><br>
+Comandos Utilizador:<br>
+[✔️] Looking for players/Not looking for players;<br>
+Comandos de Utilidade:<br>
+[✔️] Ping;<br>
+[✔️] Help;<br>
+Comandos de Administrador:<br>
+[✔️] Clear;<br>
+[❌] Blacklist;<br>
 Para fazer:<br>
 [✔️] Estrutura básica: Handlers de eventos e comandos;<br>
 [✔️] Conexão à API, processamento da informação e resposta;<br>
 [❌] Implementação de tokens para segurança da API;<br>
-[❌] Validação do token no pedido;<br>
-[❌] Comandos básicos: Ping, etc..;<br>
-[❌] Comandos avançados: Blacklist, Ticket, etc...;<br>
-[❌] Comandos de Administração: Clear, Ban, Kick, Disconnect, Mute, etc...;<br>
+[❌] Validação do token no pedido;
