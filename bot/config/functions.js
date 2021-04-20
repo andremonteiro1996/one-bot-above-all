@@ -1,6 +1,4 @@
 const seedRandom = require('seedrandom');
-const api = require('./config.json');
-const { server, port } = api;
 
 module.exports = {
     rand: (seed) => {
@@ -26,7 +24,7 @@ module.exports = {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
-                'x-auth-access': token === null ? '' : token
+                'x-auth-access': token
             }
         };
         return options;

@@ -1,8 +1,8 @@
 const { request } = require('http');
 const { sign } = require('jsonwebtoken');
 const { readFileSync } = require('fs');
+const { api } = require('../../config/config.json');
 const privateKey = readFileSync('./private.pem', 'utf8');
-const { server_options } = require('../../config/functions.js');
 
 module.exports = {
 	name: 'blacklist',
@@ -35,7 +35,7 @@ module.exports = {
 
 			const channelId = args[0] !== undefined ? args[0].replace('<#', '').replace('>', '') : channelid;
 			
-			const callback = (response) => {
+			const get_callback = (response) => {
 				let data = '';
 
 				response.on('data', (chunk) => {
@@ -43,7 +43,7 @@ module.exports = {
 				});
 
 				response.on('end', () => {
-					let resp = JSON.parse(data);
+					let get_resp = JSON.parse(data);
 
 					if (response.statusCode === 404) {
 						const insert = {
@@ -53,7 +53,7 @@ module.exports = {
 							usertag: message.author.tag
 						}
 
-						const callback = (response) => {
+						const post_callback = (response) => {
 							let data = '';
 
 							response.on('data', (chunk) => {
@@ -61,12 +61,24 @@ module.exports = {
 							});
 
 							response.on('end', async () => {
-								let resp = JSON.parse(data);
-								await message.reply(resp.msg);
+								let post_resp = JSON.parse(data);
+                                console.log(post_resp);
+								await message.reply(post_resp.msg);
 							});
 						}
 
-						const req = request(server_options('/api/channels/', 'GET', token), callback).on('error', async (err) => {
+                        const options = {
+                            server: api.server,
+                            port: api.port,
+                            path: `/api/channels/`,
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'x-auth-access': token
+                            }
+                        };
+
+						const req = request(options, post_callback).on('error', async (err) => {
 							await message.reply('ups, algo correu mal! Tenta novamente mais tarde.');
 							if (process.env.MODE === 'Development') console.log(err);
 						});
@@ -74,12 +86,12 @@ module.exports = {
 						req.write(insert);
 						req.end();
 						return;
-					} else if (resp.status === 1 && resp.active === true) {
+					} else {
 						const update = {
-							status: 0
+							status: get_resp.active === true ? 0 : 1
 						}
 						
-						const callback = (response) => {
+						const update_callback = (response) => {
 							let data = '';
 
 							response.on('data', (chunk) => {
@@ -87,36 +99,23 @@ module.exports = {
 							});
 
 							response.on('end', async () => {
-								let resp = JSON.parse(data);
-								await message.reply(resp.msg);
+								let update_resp = JSON.parse(data);
+								await message.reply(update_resp.msg);
 							});
 						}
 
-						const req = request(server_options(`/api/channels/${channelId}`, 'PUT', token), callback).on('error', async (err) => {
-							await message.reply('ups, algo correu mal! Tenta novamente mais tarde.')
-							if (process.env.MODE === 'Development') console.log(err);
-						});
+                        const options = {
+                            server: api.server,
+                            port: api.port,
+                            path: `/api/channels/${channelId}`,
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'x-auth-access': token
+                            }
+                        };
 
-						req.write(update);
-						req.end();
-						return;
-					} else if (resp.status === 0 && resp.active === false) {
-						const update = {
-							status: 1
-						}
-						
-						const callback = (response) => {
-							let data = '';
-							response.on('data', (chunk) => {
-								data += chunk;
-							});
-							response.on('end', async () => {
-								let resp = JSON.parse(data);
-								await message.reply(resp.msg);
-							});
-						}
-
-						const req = request(server_options(`/api/channels/${channelId}`, 'PUT', token), callback).on('error', async (err) => {
+						const req = request(options, update_callback).on('error', async (err) => {
 							await message.reply('ups, algo correu mal! Tenta novamente mais tarde.');
 							if (process.env.MODE === 'Development') console.log(err);
 						});
@@ -128,7 +127,18 @@ module.exports = {
 				});
 			}
 
-			const req = request(options, callback).on('error', async (err) => {
+            const options = {
+                server: api.server,
+                port: api.port,
+                path: `/api/channels/${channelId}`,
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-access': token
+                }
+            };
+
+			const req = request(options, get_callback).on('error', async (err) => {
 				await message.reply('ups, algo correu mal! Tenta novamente mais tarde.');
 				if (process.env.MODE === 'Development') console.log(err);
 			});
