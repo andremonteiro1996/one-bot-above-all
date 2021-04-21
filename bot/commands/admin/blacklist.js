@@ -63,7 +63,7 @@ const blacklist = {
 
 			const req = request(options, get_callback).on('error', async (err) => {
 				await message.reply('ups, algo correu mal! Tenta novamente mais tarde.');
-				if (process.env.MODE === 'Development') console.log(err);
+				if (process.env.MODE === 'Development') console.log(err.message);
 			});
             req.write(JSON.stringify(post));
 			req.end();
