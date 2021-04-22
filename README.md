@@ -13,11 +13,17 @@ Comandos Utilizador:<br>
 Comandos de Utilidade:<br>
 [✔️] Ping;<br>
 [✔️] Help;<br>
+[❌] Ticket;<br>
 Comandos de Administrador:<br>
 [✔️] Clear;<br>
-[❌] Blacklist;<br>
+[✔️] Blacklist;<br>
 Para fazer:<br>
 [✔️] Estrutura básica: Handlers de eventos e comandos;<br>
 [✔️] Conexão à API, processamento da informação e resposta;<br>
 [❌] Implementação de tokens para segurança da API;<br>
-[❌] Validação do token no pedido;
+[❌] Validação do token no pedido;<br>
+[❌] Implementação da API de lançamentos espaciais da SpaceX;<br>
+[❌] Implementação da API do youtube para notificação de novos vídeos;<br>
+<br>
+Copyright (c) 2021<br>
+<br>
