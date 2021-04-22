@@ -31,9 +31,15 @@ const blacklist = {
 		} else {
 			
 			if (!(args[0].toLowerCase() === 'enable' || args[0].toLowerCase() === 'disable')) return;
+
+			const channel = message.guild.channels.cache.find(ch => ch.id === `${args[1].replace('<#', '').replace('>', '')}`);
+			const guild = client.guilds.cache.find(guild => guild.id);
 			
 			const post = {
-				channel: args[1].replace('<#', '').replace('>', ''),
+				channel_id: args[1].replace('<#', '').replace('>', ''),
+				channel_name: channel.name,
+				guild_id: guild.id,
+				added_by: message.author.tag,
 				status: args[0],
 			}
 
