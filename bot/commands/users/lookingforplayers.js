@@ -3,7 +3,7 @@ const games = [
 	{ name: 'Sea of Thieves', abbr: ['sot'] },
 ];
 
-module.exports = {
+const lookingforplayers = {
 	name: 'lookingforplayers',
 	aliases: ['lfp'],
 	description: 'Permite procurar outros para jogar',
@@ -29,3 +29,5 @@ module.exports = {
         }
 	}
 }
+
+module.exports = (lookingforplayers);

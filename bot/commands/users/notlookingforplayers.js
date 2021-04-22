@@ -1,4 +1,4 @@
-module.exports = {
+const notlookingforplayers = {
 	name:'notlookingforplayers',
 	aliases: ['nlfp'],
 	description: 'Remove o estado de procura de jogadores',
@@ -13,3 +13,5 @@ module.exports = {
 		}
 	}
 }
+
+module.exports = (notlookingforplayers);

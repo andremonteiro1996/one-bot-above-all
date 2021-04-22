@@ -1,11 +1,11 @@
 const { request } = require('http');
 const { server_options } = require('../../config/functions.js');
 
-module.exports = {
+const ping = {
 	name: 'ping',
 	aliases: ['poke'],
 	description: 'Verifica o tempo de resposta.',
-	expectedArgs: '!ping <api:optional>',
+	expectedArgs: '<api:opcional>',
 	permissions: [],
 	permissionsErr: '',
 	requiredRoles: [],
@@ -39,3 +39,5 @@ module.exports = {
 		}
 	}
 }
+
+module.exports = (ping);

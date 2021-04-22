@@ -1,7 +1,7 @@
 const { capitalize } = require('../../config/functions');
 const { readdirSync } = require('fs');
 
-module.exports = {
+const help = {
 	name: 'help',
 	aliases: ['sos'],
 	description: 'Retorna todos os comandos existentes.',
@@ -46,3 +46,5 @@ module.exports = {
 		}
 	}
 }
+
+module.exports = (help);
