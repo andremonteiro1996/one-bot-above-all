@@ -24,7 +24,7 @@ const help = {
 					command = require(`../${dirs}/${file}`);
 					if (memberRoles.find(role => command.requiredRoles.includes(role.id)) || command.requiredRoles.length === 0) {
 						cmd.push({
-							name: `**${command.name}**\n${command.description}`,
+							name: `${capitalize(command.name)}\n${command.description}`,
 							value: `\`\`\`${command.aliases.join (', ')}\`\`\``,
 							inline: true
 						});
