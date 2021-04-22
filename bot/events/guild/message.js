@@ -50,8 +50,6 @@ module.exports = (Discord, client, message) => {
             const cmd = args.shift().toLowerCase();
             const command = client.commands.get(cmd) || client.commands.find(command => command.aliases && command.aliases.includes(cmd));
             
-            console.log(data);
-
             if (!command) return message.reply(`o comando !${cmd} não existe ou não está disponível`);
 
             const { 
