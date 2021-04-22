@@ -1,7 +1,7 @@
 const { capitalize } = require('../../config/functions');
 const { readdirSync } = require('fs');
 
-module.exports = {
+const help = {
 	name: 'help',
 	aliases: ['sos'],
 	description: 'Retorna todos os comandos existentes.',
@@ -9,9 +9,9 @@ module.exports = {
 	permissions: [],
 	permissionsErr: '',
 	requiredRoles: [],
-	execute: async (client, message, args, Discord) => {
+	execute: (client, message, args, Discord) => {
 		if (args[0]) {
-			await message.reply('este comando não aceita argumentos.');
+			message.reply('este comando não aceita argumentos.');
 			return;
 		} else {
 			let cmd = [];
@@ -24,7 +24,7 @@ module.exports = {
 					command = require(`../${dirs}/${file}`);
 					if (memberRoles.find(role => command.requiredRoles.includes(role.id)) || command.requiredRoles.length === 0) {
 						cmd.push({
-							name: `**${command.name}**\n${command.description}`,
+							name: `${capitalize(command.name)}\n***${command.description}***`,
 							value: `\`\`\`${command.aliases.join (', ')}\`\`\``,
 							inline: true
 						});
@@ -36,10 +36,15 @@ module.exports = {
 
 			const embed = new Discord.MessageEmbed()
 				.setColor('#8996d2')
-				.setTitle('Test')
-				.addFields(cmd);
+				.setTitle('Menu de ajuda')
+                .setDescription('Aqui são apresentados os comandos a que tens acesso. Para usar estes comandos prefixa-se sempre um "!".')
+                .addFields(cmd)
+                .setTimestamp()
+                .setFooter( `${message.author.tag}`, `${message.author.avatarURL()}`);
 
-			message.channel.send(embed);
+			message.reply(embed);
 		}
 	}
 }
+
+module.exports = (help);

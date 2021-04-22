@@ -1,8 +1,8 @@
-module.exports = {
+const clear = {
     name: 'clear',
     aliases: ['cls', 'wipe', 'purge'],
     description: 'Limpa um numero definido de mensagens.',
-    expectedArgs: '!clear <numero:opcional>',
+    expectedArgs: '<numero:opcional>',
     permissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
     permissionsErr: '',
     requiredRoles: ['796467134280237106'],
@@ -28,3 +28,5 @@ module.exports = {
         }
     }
 }
+
+module.exports = (clear);
