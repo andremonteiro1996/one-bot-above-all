@@ -48,9 +48,12 @@ module.exports = (Discord, client, message) => {
 
             const args = content.slice(prefix.length).split(/ +/);
             const cmd = args.shift().toLowerCase();
-            const command = client.commands.get(cmd) || client.commands.find(command => command.aliases && command.aliases.includes(cmd));
+            const command = client.commands.find(command => command.aliases && command.aliases.includes(cmd));
             
-            if (!command) return message.reply(`o comando !${cmd} não existe ou não está disponível`);
+            if (!command) {
+                message.reply(`o comando ${cmd} não existe ou não está disponível!`);
+                return;
+            }
 
             const { 
                 name,
@@ -76,7 +79,6 @@ module.exports = (Discord, client, message) => {
                 }
             }
         });
-
     }).on('error', async (err) => {
         await message.reply('ups, algo correu mal! Tenta novamente mais tarde.');
 		if (process.env.MODE === 'Development') console.log(err.message);
