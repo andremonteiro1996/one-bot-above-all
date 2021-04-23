@@ -5,7 +5,6 @@ const { prefix } = require('../../config/config.json');
 const privateKey = readFileSync('./private.pem', 'utf8');
 
 module.exports = (Discord, client, message) => {
-
     
     const token = sign(
         {
@@ -48,7 +47,7 @@ module.exports = (Discord, client, message) => {
 
             const args = content.slice(prefix.length).split(/ +/);
             const cmd = args.shift().toLowerCase();
-            const command = client.commands.find(command => command.aliases && command.aliases.includes(cmd));
+            const command = client.commands.get(cmd) || client.commands.find(command => command.aliases && command.aliases.includes(cmd));
             
             if (!command) {
                 message.reply(`o comando ${cmd} não existe ou não está disponível!`);
@@ -78,6 +77,7 @@ module.exports = (Discord, client, message) => {
                     break;
                 }
             }
+
         });
     }).on('error', async (err) => {
         await message.reply('ups, algo correu mal! Tenta novamente mais tarde.');
