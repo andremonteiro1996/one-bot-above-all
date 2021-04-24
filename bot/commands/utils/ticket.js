@@ -96,9 +96,7 @@ const ticket = {
 				response.on('end', async () => {
 					let resp = JSON.parse(data);
 
-
 					const memberRoles = message.member.roles.cache.first();
-
 					// console.log(memberRoles.id); return;
 
 					const channel = message.guild.channels.cache.find(ch => ch.name = `${args[1].replace('<#', '').replace('>', '')}`);
@@ -110,7 +108,7 @@ const ticket = {
 						}
 					]);
 
-					console.log(channel.permissionOverwrites.map());
+					console.log(channel.permissionOverwrites);
 
 					await message.reply(resp.msg);
 				
