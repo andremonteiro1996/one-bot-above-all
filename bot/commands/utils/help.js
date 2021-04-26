@@ -1,3 +1,4 @@
+const { prefix } = require('../../config/config.json');
 const { capitalize } = require('../../config/functions');
 const { readdirSync } = require('fs');
 
@@ -37,7 +38,7 @@ const help = {
 			const embed = new Discord.MessageEmbed()
 				.setColor('#8996d2')
 				.setTitle('Menu de ajuda')
-                .setDescription('Aqui são apresentados os comandos a que tens acesso. Para usar estes comandos prefixa-se sempre um "!".')
+                .setDescription(`Aqui são apresentados os comandos a que tens acesso. Para usar estes comandos prefixa-se sempre um "${prefix}".`)
                 .addFields(cmd)
                 .setTimestamp()
                 .setFooter( `${message.author.tag}`, `${message.author.avatarURL()}`);
