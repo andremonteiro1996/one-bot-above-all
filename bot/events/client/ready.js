@@ -5,7 +5,7 @@ const { arrayRand, server_options } = require('../../config/functions.js');
 const { prefix } = require('../../config/config.json');
 const privateKey = readFileSync('./private.pem', 'utf8');
 
-module.exports = async (Discord, client) => {
+module.exports = (Discord, client) => {
 
     const activities = [
         'Plague, Inc',
@@ -43,19 +43,15 @@ module.exports = async (Discord, client) => {
 
         response.on('end', async () => {
             const channels = JSON.parse(data);
-
-            // console.log(channels); return;
-
             for (var i = 0; i < channels.length; i++) {
                 client.blacklist.set(channels[i].channel_name, channels[i]);
             }
-
             console.log(`Canal ${channels.map(channel => channel.channel_name).join(', ')} na blacklist.`);
         });
     });
 
     req.end();
     
-    await console.log(`${client.user.tag} está a usar o prefixo: ${prefix}`);
-    await console.log(`${client.user.tag} está agora online e a correr no modo de ${process.env.MODE}!`);
+    console.log(`${client.user.tag} está a usar o prefixo: ${prefix}`);
+    console.log(`${client.user.tag} está agora online e a correr no modo de ${process.env.MODE}!`);
 }
