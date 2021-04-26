@@ -37,10 +37,22 @@ const validatePermissions = (permissions) => {
 
     for(const permission of permissions) {
         if (!validPermissions.includes(permission)) {
-            throw new Error(`Invalid permission node ${permission}`);
+            throw new Error(`Invalid permission node ${permission}.`);
         }
     }
 }
+
+// const validateRoles = (client, roles) => {
+//     const validRoles = [];
+
+//     client.guild.roles.cache.forEach(role => validRoles.push(role.id));
+
+//     for (const role of roles) {
+//         if (!validRoles.includes(role)) {
+//             throw new Error(`Invalid role node ${role}.`);
+//         }
+//     }
+// }
 
 module.exports = (client, Discord, command) => {
     const load_dir = (dirs) => {
@@ -55,7 +67,7 @@ module.exports = (client, Discord, command) => {
                 description,
                 expectedArgs,
                 permissions = [],
-                permissionErr = 'não tens as permissões necessárias para usar esse comando!',
+                permissionErr,
                 requiredRoles = []
             } = command;
 
