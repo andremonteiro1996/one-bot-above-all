@@ -2,7 +2,6 @@ const { request } = require('http');
 const { sign } = require('jsonwebtoken');
 const { readFileSync } = require('fs');
 const { rand, server_options } = require('../../config/functions');
-const { PermissionOverwrites } = require('discord.js');
 const privateKey = readFileSync('./private.pem', 'utf8');
 
 const ticket = { 
@@ -12,7 +11,7 @@ const ticket = {
 	expectedArgs: '<create|close: obrigatório> <id_ticket: obrigatório>',
 	permissions: [],
 	permissionsErr: '',
-	requiredRoles: [],
+	requiredRoles: ['803050640002908221'],
 	execute: (client, message, args, Discord) => {
 		const token = sign(
 			{
@@ -76,7 +75,15 @@ const ticket = {
 			req.end();
 		} else if (args[0] === 'close') {
 			
-			if (!args[1]) return;
+			if (!args[1]) {
+				message.reply('necessita de fornecer o nome do canal.');
+				return;
+			}
+
+			if (message.channel.id !== args[1].replace('<#', '').replace('>', '')) {
+				message.reply('o ticket não pode ser fechado neste canal.');
+				return;
+			};
 			
 			const ticket = message.guild.channels.cache.find(ch => ch.id === `${args[1].replace('<#', '').replace('>', '')}`);
 			const ticket_id = ticket.name.replace('ticket-', '');
@@ -97,19 +104,15 @@ const ticket = {
 					let resp = JSON.parse(data);
 
 					const memberRoles = message.member.roles.cache.first();
-					// console.log(memberRoles.id); return;
-
-					const channel = message.guild.channels.cache.find(ch => ch.name = `${args[1].replace('<#', '').replace('>', '')}`);
+					const channel = message.channel;
 					
 					channel.overwritePermissions([
 						{
-							id: message.author.id,
-							deny: ['SEND_MESSAGES']
+						  id: memberRoles.id,
+						  deny: ["VIEW_CHANNEL", "SEND_MESSAGES"]
 						}
 					]);
-
-					console.log(channel.permissionOverwrites);
-
+					
 					await message.reply(resp.msg);
 				
 				});
