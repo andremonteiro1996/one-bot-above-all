@@ -2,15 +2,10 @@ const { prefix } = require('../../config/config.json');
 
 module.exports = (Discord, client, message) => {
 
-    const blacklist = client.blacklist.map(ch => ch.channel_name);
-    console.log(blacklist);
-    console.log(client.blacklist.find(ch => ch.channel_name.includes(`${message.channel.name}`)));
-
-    if (client.blacklist.get(message.channel.name)) return;
-
     const { content, member, author } = message;
 
     if (!content.startsWith(prefix) || author.bot) return;
+    if (client.blacklist.get(message.channel.name) !== undefined) return;
 
     const args = content.slice(prefix.length).split(/ +/);
     const cmd = args.shift().toLowerCase();
@@ -35,6 +30,12 @@ module.exports = (Discord, client, message) => {
     for (const permission of permissions) {
         if (!member.hasPermission(permission)) {
             return message.reply(permissionsErr);
+        }
+    }
+
+    for (const requireRole of requiredRoles) {
+        if (!member.roles.cache.has(requireRole)) {
+            return message.reply('Não tem a Role necessária para efectuar esse comando.');
         }
     }
 
