@@ -10,7 +10,7 @@ const lookingforplayers = {
 	expectedArgs: '',
 	permissions: [],
 	permissionsErr: '',
-	requiredRoles: [],
+	requiredRoles: ['803050640002908221'],
 	execute: (client, message, args, Discord) => {
 		const role = message.guild.roles.cache.find(role => role.id === '803050640002908221');
         if (args[0]) {

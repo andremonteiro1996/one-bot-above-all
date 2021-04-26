@@ -4,7 +4,7 @@ const notlookingforplayers = {
 	description: 'Remove o estado de procura de jogadores',
 	permissions: [],
 	permissionsErr: '',
-	requiredRoles:[],
+	requiredRoles:['803050640002908221'],
 	execute: (client, message, args, Discord) => {
 		const role = message.guild.roles.cache.find(role => role.id === '803050640002908221');
 		if (message.member.roles.cache.has(role.id)) {
