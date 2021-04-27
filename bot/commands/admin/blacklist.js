@@ -9,7 +9,7 @@ const blacklist = {
 	aliases: ['nonolist', 'block'],
 	description: 'Bloqueia comandos em certos canais',
 	expectedArgs: '<enable|disable:obrigatorio> <canal:obrigatorio>',
-	permissions: [],
+	permissions: ['ADMINISTRATOR', 'MANAGE_CHANNELS'],
 	permissionsErr: '',
 	requiredRoles: ['796467134280237106'],
 	execute: (client, message, args, Discord) => {
