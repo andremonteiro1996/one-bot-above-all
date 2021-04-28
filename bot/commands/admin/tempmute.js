@@ -1,3 +1,9 @@
+const { request } = require('http');
+const { sign } = require('jsonwebtoken');
+const { readFileSync } = require('fs');
+const { server_options } = require('../../config/functions');
+const privateKey = readFileSync('./private.pem', 'utf8');
+
 const tempmute = {
     name: 'tempmute',
     aliases: ['tmpm', 'tmute', 'chatmute'],
@@ -7,6 +13,19 @@ const tempmute = {
     permissionsErr: 'não tens permissão para executar esse comando!',
     requiredRoles: [],
     execute: (client, message, args, Discord) => {
+
+        const token = sign(
+            {
+                id: `${client.user.id}`,
+                usertag: `${client.user.tag}`
+            },
+            privateKey,
+            {
+                expiresIn: 3600,
+                algorithm: 'RS256'
+            }
+        );
+
         if (!args[1])  {
             message.reply(`este comando necessita dos seguintes argumentos: ${tempmute.expectedArgs}, para funcionar.`);
             return;
@@ -22,10 +41,11 @@ const tempmute = {
         }
 
         const unit = args[1].substring(args[1].length - 1);
-        var time = args[1].substring(0, args[1].length - 1)
+        const time = args[1].substring(0, args[1].length - 1);
         
+        var now = new Date().getTime();
         var timeMS = 0;
-
+        
         switch (unit) {
             case 'm': timeMS = (time * 60) * 1000; break;
             case 'd': timeMS = (time * 3600 * 24) * 1000; break;
@@ -33,25 +53,29 @@ const tempmute = {
             default: message.reply('por favor providencie a unidade de tempo.');
         }
 
-        guild.channels.cache.map(channel => {
-            channel.overwritePermissions([
-                {
-                  id: user.id,
-                  deny: ["SEND_MESSAGES"]
-                }
-            ]);
+        const unmuteDate = new Date(now + timeMS);
+        
+        const userData = {
+            user_id: user.id,
+            mute_date: now,
+            unmute_date: unmuteDate,
+        }
+
+        const mutedUsers = request(server_options('/api/users/muted', 'POST', token), (response) => {
+            let data = '';
+
+            response.on('data', (chunk) => {
+                data += chunk;
+            });
+
+            response.on('end', () => {
+                const resp = JSON.parse(data);
+                console.log(resp.msg);
+            });
         });
 
-        setTimeout(() => {
-            guild.channels.cache.map(channel => {
-                channel.overwritePermissions([
-                    {
-                      id: user.id,
-                      allow: ["SEND_MESSAGES"]
-                    }
-                ]);
-            });
-        }, timeMS);
+        mutedUsers.write(JSON.stringify(userData));
+        mutedUsers.end();
     }
 }
 
