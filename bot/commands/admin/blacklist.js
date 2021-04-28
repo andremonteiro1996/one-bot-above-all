@@ -60,6 +60,11 @@ const blacklist = {
 
 			response.on('end', async () => {
 				let resp = JSON.parse(data);
+
+                if (!data.success) {
+
+                }
+
 				await message.reply(resp.msg);
 			});
 		}).on('error', async (err) => {
