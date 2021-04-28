@@ -4,7 +4,7 @@ const { server_options } = require('../../config/functions.js');
 const ping = {
 	name: 'ping',
 	aliases: ['poke'],
-	description: 'Verifica o tempo de resposta.',
+	description: 'Verifica o tempo de resposta do entre o utilizador e o cliente.',
 	expectedArgs: '<api:opcional>',
 	permissions: [],
 	permissionsErr: '',

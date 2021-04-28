@@ -4,7 +4,7 @@ const clear = {
     description: 'Limpa um numero definido de mensagens.',
     expectedArgs: '<numero:opcional>',
     permissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
-    permissionsErr: '',
+    permissionsErr: 'não tens permissão para usar esse comando!',
     requiredRoles: ['796467134280237106'],
     execute: (client, message, args, Discord) => {
         if (!args[0]) {

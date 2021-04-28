@@ -1,10 +1,14 @@
 const seedRandom = require('seedrandom');
+const { api } = require('./config.json');
+const { server, port } = api;
 
 module.exports = {
-    rand: (seed) => {
+    rand: (seed, min, max) => {
         const generator = seedRandom(seed);
         const rand_number = generator();
-        return rand_number;
+        return Math.floor(
+            Math.random() * (rand_number - min + max) + min
+        );
     },
     arrayRand: (arrayLength) => {
         return Math.floor(
@@ -27,6 +31,7 @@ module.exports = {
                 'x-auth-access': token
             }
         };
+
         return options;
     }
 }
